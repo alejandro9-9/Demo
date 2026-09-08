@@ -1,6 +1,6 @@
 {
   "business": {
-    "name": "Zohar Basic",
+    "name": "Cumbre Nortess",
     "eyebrow": "Inmobiliaria boutique · Lima",
     "description": "Encontramos espacios que se sienten como hogar y oportunidades que hacen sentido a largo plazo.",
     "phone": "+51 1 709 2840",
@@ -11,12 +11,12 @@
     "hours": "Lun–Vie · 9:00 a 18:30"
   },
   "hero": {
-    "title": "Un lugar para vivir lo que sigue. xd",
+    "title": "Un lugar para vivir lo que sigue.",
     "subtitle": "Propiedades seleccionadas para quienes valoran la arquitectura, la ubicación y la tranquilidad de elegir bien.",
-    "image": "/public/uploads/1788902100822-83c6b6d5.jpg",
+    "image": "/uploads/1788895118699-c55e83c7.jpg",
     "slides": [
       {
-        "image": "/public/uploads/1788902100822-83c6b6d5.jpg",
+        "image": "/uploads/1788895118699-c55e83c7.jpg",
         "imageAlt": "Sala contemporánea con luz natural y vista a la ciudad",
         "label": "Una mirada más humana"
       },
