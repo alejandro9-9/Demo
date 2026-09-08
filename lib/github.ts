@@ -61,5 +61,7 @@ export async function uploadImageToGithub(file: File) {
   const settings = config();
   const body = { message: `Admin: subir imagen ${safeName}`, content: bytes.toString('base64'), branch: settings.branch };
   await githubRequest(endpoint(settings, repoPath), { method: 'PUT', body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } });
-  return `/${repoPath}`;
+  // GitHub stores the file under `public/`, but Next.js exposes that folder
+  // from the site root, so the browser URL must omit the `public` prefix.
+  return `/uploads/${safeName}`;
 }

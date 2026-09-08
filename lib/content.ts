@@ -21,10 +21,19 @@ export type SiteContent = {
 
 export const siteContent = contentJson as SiteContent;
 
+function normalizeUploadPaths(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(normalizeUploadPaths);
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(Object.entries(value).map(([key, nestedValue]) => [key, normalizeUploadPaths(nestedValue)]));
+  }
+  if (typeof value === 'string') return value.replace(/^\/public\/uploads\//, '/uploads/');
+  return value;
+}
+
 export function sanitizeContent(input: unknown): SiteContent {
   if (!input || typeof input !== 'object') throw new Error('El contenido debe ser un objeto válido.');
   const candidate = input as Partial<SiteContent>;
   if (!candidate.business?.name || !candidate.hero?.title || !candidate.location?.mapUrl) throw new Error('Faltan campos obligatorios para publicar el contenido.');
   if (JSON.stringify(input).length > 180_000) throw new Error('El contenido supera el límite permitido.');
-  return input as SiteContent;
+  return normalizeUploadPaths(input) as SiteContent;
 }
