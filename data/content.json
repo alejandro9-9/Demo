@@ -1,0 +1,147 @@
+{
+  "business": {
+    "name": "Cumbre Norte",
+    "eyebrow": "Inmobiliaria boutique · Lima",
+    "description": "Encontramos espacios que se sienten como hogar y oportunidades que hacen sentido a largo plazo.",
+    "phone": "+51 1 709 2840",
+    "whatsapp": "917471964",
+    "whatsappMessage": "Hola, quisiera conocer las propiedades disponibles de Cumbre Norte.",
+    "email": "hola@cumbrenorte.pe",
+    "address": "Plaza San Miguel, Lima",
+    "hours": "Lun–Vie · 9:00 a 18:30"
+  },
+  "hero": {
+    "title": "Un lugar para vivir lo que sigue.",
+    "subtitle": "Propiedades seleccionadas para quienes valoran la arquitectura, la ubicación y la tranquilidad de elegir bien.",
+    "image": "/uploads/1788895118699-c55e83c7.jpg",
+    "slides": [
+      {
+        "image": "/uploads/1788895118699-c55e83c7.jpg",
+        "imageAlt": "Sala contemporánea con luz natural y vista a la ciudad",
+        "label": "Una mirada más humana"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=88",
+        "imageAlt": "Casa contemporánea rodeada de árboles",
+        "label": "Arquitectura para vivir"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=88",
+        "imageAlt": "Interior moderno con cocina abierta y luz natural",
+        "label": "Luz en cada ambiente"
+      },
+      {
+        "image": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1800&q=88",
+        "imageAlt": "Exterior residencial con jardín y piscina",
+        "label": "Espacios con futuro"
+      }
+    ],
+    "imageAlt": "Sala contemporánea con luz natural y vista a la ciudad",
+    "primaryCta": "Ver propiedades",
+    "secondaryCta": "Conversemos"
+  },
+  "stats": [
+    {
+      "value": "12+",
+      "label": "años mirando la ciudad"
+    },
+    {
+      "value": "180",
+      "label": "familias acompañadas"
+    },
+    {
+      "value": "06",
+      "label": "distritos que conocemos"
+    }
+  ],
+  "services": [
+    {
+      "number": "01",
+      "title": "Compra con criterio",
+      "description": "Te guiamos desde la primera visita hasta la firma, con lectura clara de cada detalle."
+    },
+    {
+      "number": "02",
+      "title": "Venta con propósito",
+      "description": "Ponemos tu propiedad frente a las personas correctas y defendemos su verdadero valor."
+    },
+    {
+      "number": "03",
+      "title": "Inversión que permanece",
+      "description": "Analizamos ubicación, demanda y potencial para que cada decisión tenga una mirada de futuro."
+    }
+  ],
+  "featuredProperties": [
+    {
+      "id": "casa-olivos-01",
+      "tag": "Casa · Venta",
+      "title": "Casa Alpina",
+      "location": "La Molina, Lima",
+      "price": "US$ 485,000",
+      "details": "4 dorm. · 3.5 baños · 286 m²",
+      "description": "Una casa contemporánea pensada para vivir hacia el jardín: líneas limpias, luz cálida y espacios que conectan lo cotidiano con el exterior.",
+      "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=86",
+      "imageAlt": "Casa contemporánea de dos pisos rodeada de árboles"
+    },
+    {
+      "id": "depa-miraflores-02",
+      "tag": "Departamento · Venta",
+      "title": "Miraflores 17",
+      "location": "Miraflores, Lima",
+      "price": "US$ 312,000",
+      "details": "2 dorm. · 2 baños · 118 m²",
+      "description": "Un departamento luminoso a pocos minutos del malecón, con planta abierta, acabados sobrios y una distribución fácil de habitar.",
+      "image": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=86",
+      "imageAlt": "Interior de departamento moderno con sala y cocina abierta"
+    },
+    {
+      "id": "penthouse-san-isidro-03",
+      "tag": "Penthouse · Venta",
+      "title": "Aurelia 902",
+      "location": "San Isidro, Lima",
+      "price": "US$ 690,000",
+      "details": "3 dorm. · 3 baños · 241 m²",
+      "description": "Una última planta serena y amplia, con ventanales generosos, materiales nobles y una sensación de privacidad poco común en la ciudad.",
+      "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=86",
+      "imageAlt": "Sala amplia de penthouse con ventanales y mobiliario cálido"
+    }
+  ],
+  "about": {
+    "eyebrow": "La forma Cumbre Norte",
+    "title": "Elegir bien también es una forma de vivir.",
+    "description": "Somos un equipo pequeño, atento y obsesionado con los detalles que convierten una propiedad en una buena decisión. Combinamos conocimiento local, criterio comercial y una manera honesta de acompañar.",
+    "image": "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1400&q=86",
+    "imageAlt": "Fachada de una casa moderna al atardecer",
+    "quote": "No se trata solo de encontrar metros cuadrados. Se trata de encontrar el ritmo de vida que quieres construir."
+  },
+  "gallery": [
+    {
+      "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=86",
+      "alt": "Cocina contemporánea con isla central"
+    },
+    {
+      "image": "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1000&q=86",
+      "alt": "Dormitorio luminoso con acabados naturales"
+    },
+    {
+      "image": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1000&q=86",
+      "alt": "Exterior de vivienda con jardín y piscina"
+    }
+  ],
+  "location": {
+    "title": "Nos encuentras en Plaza San Miguel",
+    "description": "Una oficina tranquila para conversar sobre tu próxima propiedad, revisar opciones y tomar decisiones con tiempo.",
+    "mapQuery": "Plaza San Miguel, Lima, Peru",
+    "mapUrl": "https://www.google.com/maps?q=Plaza%20San%20Miguel%2C%20Lima%2C%20Peru&output=embed"
+  },
+  "social": {
+    "facebook": "https://facebook.com/cumbrenorte.pe",
+    "instagram": "https://instagram.com/cumbrenorte.pe",
+    "tiktok": "https://tiktok.com/@cumbrenorte.pe"
+  },
+  "seo": {
+    "title": "Cumbre Norte · Inmobiliaria boutique en Lima",
+    "description": "Propiedades seleccionadas en Lima y asesoría inmobiliaria con criterio, cercanía y visión de futuro."
+  },
+  "demoNotice": "Sitio demo · Propiedades, precios y datos de contacto referenciales."
+}
