@@ -13,10 +13,10 @@
   "hero": {
     "title": "Un lugar para vivir lo que sigue. xd",
     "subtitle": "Propiedades seleccionadas para quienes valoran la arquitectura, la ubicación y la tranquilidad de elegir bien.",
-    "image": "/public/uploads/1788902100822-83c6b6d5.jpg",
+    "image": "/uploads/1788902100822-83c6b6d5.jpg",
     "slides": [
       {
-        "image": "/public/uploads/1788902100822-83c6b6d5.jpg",
+        "image": "/uploads/1788902100822-83c6b6d5.jpg",
         "imageAlt": "Sala contemporánea con luz natural y vista a la ciudad",
         "label": "Una mirada más humana"
       },
