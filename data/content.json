@@ -104,6 +104,17 @@
       "description": "Una última planta serena y amplia, con ventanales generosos, materiales nobles y una sensación de privacidad poco común en la ciudad.",
       "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=86",
       "imageAlt": "Sala amplia de penthouse con ventanales y mobiliario cálido"
+    },
+    {
+      "id": "propiedad-1788906482136",
+      "tag": "Propiedad · Venta",
+      "title": "Terreno de 100m2",
+      "location": "Lima, Perú",
+      "price": "S/10,000",
+      "details": "100m2 ",
+      "description": "Piscina",
+      "image": "/uploads/1788906577868-a05083cc.jpg",
+      "imageAlt": "Imagen de la nueva propiedad"
     }
   ],
   "about": {
