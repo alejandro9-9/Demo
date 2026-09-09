@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Property, SiteContent } from '@/lib/content';
 import { PropertyCard } from './property-card';
 
@@ -14,11 +14,43 @@ function propertyWhatsappUrl(content: SiteContent, property: Property) {
 }
 
 function PropertyModal({ content, property, onClose }: { content: SiteContent; property: Property; onClose: () => void }) {
+  const dialogRef = useRef<HTMLElement>(null);
+
+  useEffect(function managePropertyModal() {
+    const previousOverflow = document.body.style.overflow;
+
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === 'Escape') onClose();
+      if (event.key !== 'Tab') return;
+
+      const dialog = dialogRef.current;
+      if (!dialog) return;
+      const focusable = Array.from(dialog.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', closeOnEscape);
+    return function restorePropertyModalState() {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [onClose]);
+
   return (
     <div className="property-modal" role="presentation" onClick={onClose}>
-      <article className="property-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="property-modal-title" onClick={(event) => event.stopPropagation()}>
+      <article ref={dialogRef} className="property-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="property-modal-title" aria-describedby="property-modal-description" onClick={(event) => event.stopPropagation()}>
         <div className="property-modal__visual"><Image src={property.image} alt={property.imageAlt} fill sizes="(max-width: 800px) 100vw, 48vw" className="property-modal__image" unoptimized /><span className="property-modal__tag">{property.tag}</span></div>
-        <div className="property-modal__body"><button className="property-modal__close" type="button" onClick={onClose} aria-label="Cerrar detalles">×</button><p className="eyebrow">Ficha de propiedad</p><h2 id="property-modal-title">{property.title}</h2><p className="property-modal__location">{property.location}</p><p className="property-modal__description">{property.description}</p><dl className="property-modal__facts"><div><dt>Precio</dt><dd>{property.price}</dd></div><div><dt>Características</dt><dd>{property.details}</dd></div></dl><a className="button button--dark property-modal__cta" href={propertyWhatsappUrl(content, property)} target="_blank" rel="noreferrer">Consultar por WhatsApp <span>↗</span></a><p className="property-modal__hint">Te responderemos con disponibilidad, fotos y opciones para visitar.</p></div>
+        <div className="property-modal__body"><button className="property-modal__close" type="button" onClick={onClose} aria-label="Cerrar detalles" autoFocus>×</button><p className="eyebrow">Ficha de propiedad</p><h2 id="property-modal-title">{property.title}</h2><p className="property-modal__location">{property.location}</p><p className="property-modal__description" id="property-modal-description">{property.description}</p><dl className="property-modal__facts"><div><dt>Precio</dt><dd>{property.price}</dd></div><div><dt>Características</dt><dd>{property.details}</dd></div></dl><a className="button button--dark property-modal__cta" href={propertyWhatsappUrl(content, property)} target="_blank" rel="noreferrer">Consultar por WhatsApp <span>↗</span></a><p className="property-modal__hint">Te responderemos con disponibilidad, fotos y opciones para visitar.</p></div>
       </article>
     </div>
   );
@@ -31,9 +63,12 @@ export function PublicSite({ content }: { content: SiteContent }) {
   const heroSlides = content.hero.slides?.length ? content.hero.slides : [{ image: content.hero.image, imageAlt: content.hero.imageAlt, label: 'Una mirada más humana' }];
   const currentHeroSlide = heroSlides[activeSlide] ?? heroSlides[0];
   const closeMenu = () => setMenuOpen(false);
+  const closePropertyModal = useCallback(() => setSelectedProperty(null), []);
   const chatUrl = whatsappUrl(content);
 
   useEffect(function rotateHeroSlides() {
+    if (heroSlides.length < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const interval = window.setInterval(function advanceHeroSlide() {
       setActiveSlide((current) => (current + 1) % heroSlides.length);
     }, 3500);
@@ -51,7 +86,7 @@ export function PublicSite({ content }: { content: SiteContent }) {
           <nav id="site-navigation" className={`site-nav${menuOpen ? ' site-nav--open' : ''}`} aria-label="Navegación principal"><a href="#propiedades" onClick={closeMenu}>Propiedades</a><a href="#visitanos" onClick={closeMenu}>Visítanos</a><a className="site-nav__cta" href={chatUrl} target="_blank" rel="noreferrer" onClick={closeMenu}>Hablemos <span>↗</span></a></nav>
         </header>
 
-        <section id="inicio" className="hero-section"><div className="hero-section__content"><p className="eyebrow">{content.business.eyebrow}</p><h1>{content.hero.title}</h1><p className="hero-section__subtitle">{content.hero.subtitle}</p><div className="hero-section__actions"><a className="button button--dark" href="#propiedades">{content.hero.primaryCta} <span>↓</span></a><a className="text-link" href={chatUrl} target="_blank" rel="noreferrer">{content.hero.secondaryCta} <span>↗</span></a></div></div><div className="hero-section__visual" role="region" aria-roledescription="carousel" aria-label="Galería de Cumbre Norte">{heroSlides.map((slide, index) => <Image key={slide.image} src={slide.image} alt={slide.imageAlt} fill priority={index === 0} sizes="(max-width: 767px) 100vw, 55vw" className={`hero-section__image${index === activeSlide ? ' hero-section__image--active' : ''}`} unoptimized />)}<div className="hero-section__caption"><span>{String(activeSlide + 1).padStart(2, '0')} / {String(heroSlides.length).padStart(2, '0')}</span><span>{currentHeroSlide.label}</span></div><div className="hero-section__dots" aria-label="Seleccionar imagen">{heroSlides.map((slide, index) => <button className={`hero-section__dot${index === activeSlide ? ' hero-section__dot--active' : ''}`} type="button" key={slide.image} aria-label={`Ver imagen ${index + 1}`} aria-current={index === activeSlide} onClick={() => setActiveSlide(index)} />)}</div></div></section>
+        <section id="inicio" className="hero-section"><div className="hero-section__content"><p className="eyebrow">{content.business.eyebrow}</p><h1>{content.hero.title}</h1><p className="hero-section__subtitle">{content.hero.subtitle}</p><div className="hero-section__actions"><a className="button button--dark" href="#propiedades">{content.hero.primaryCta} <span>↓</span></a><a className="text-link" href={chatUrl} target="_blank" rel="noreferrer">{content.hero.secondaryCta} <span>↗</span></a></div></div><div className="hero-section__visual" role="region" aria-roledescription="carousel" aria-label="Galería de Cumbre Norte">{heroSlides.map((slide, index) => <Image key={slide.image} src={slide.image} alt={index === activeSlide ? slide.imageAlt : ''} aria-hidden={index !== activeSlide} fill priority={index === 0} loading={index === 0 ? 'eager' : 'lazy'} sizes="(max-width: 767px) 100vw, 55vw" className={`hero-section__image${index === activeSlide ? ' hero-section__image--active' : ''}`} unoptimized />)}<div className="hero-section__caption" aria-live="polite"><span>{String(activeSlide + 1).padStart(2, '0')} / {String(heroSlides.length).padStart(2, '0')}</span><span>{currentHeroSlide.label}</span></div><div className="hero-section__dots" aria-label="Seleccionar imagen">{heroSlides.map((slide, index) => <button className={`hero-section__dot${index === activeSlide ? ' hero-section__dot--active' : ''}`} type="button" key={slide.image} aria-label={`Ver imagen ${index + 1}`} aria-current={index === activeSlide} onClick={() => setActiveSlide(index)} />)}</div></div></section>
 
         <section className="stats-section" aria-label="Cumbre Norte en cifras">{content.stats.map((stat) => <div className="stat" key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</section>
 
@@ -65,7 +100,7 @@ export function PublicSite({ content }: { content: SiteContent }) {
 
         <footer className="site-footer"><div className="site-footer__top"><div><a className="brand brand--footer" href="#inicio"><span className="brand__mark">CN</span><span className="brand__name">{content.business.name}</span></a><p>{content.business.description}</p></div><div className="site-footer__links"><a href={`mailto:${content.business.email}`}>{content.business.email}</a><a href={`tel:${content.business.phone.replace(/\s/g, '')}`}>{content.business.phone}</a></div><div className="site-footer__social"><p className="site-footer__social-label">Redes sociales</p><div className="site-footer__social-links"><a href={content.social.instagram} target="_blank" rel="noreferrer" aria-label="Visitar Instagram de Cumbre Norte">Instagram <span>↗</span></a><a href={content.social.facebook} target="_blank" rel="noreferrer" aria-label="Visitar Facebook de Cumbre Norte">Facebook <span>↗</span></a><a href={content.social.tiktok} target="_blank" rel="noreferrer" aria-label="Visitar TikTok de Cumbre Norte">TikTok <span>↗</span></a></div></div></div><div className="site-footer__bottom"><span>© 2026 {content.business.name}</span><span>Hecho para elegir mejor.</span><a href="#inicio">Volver arriba ↑</a></div></footer>
       </main>
-      {selectedProperty ? <PropertyModal content={content} property={selectedProperty} onClose={() => setSelectedProperty(null)} /> : null}
+      {selectedProperty ? <PropertyModal content={content} property={selectedProperty} onClose={closePropertyModal} /> : null}
       <a className="whatsapp-float" href={chatUrl} target="_blank" rel="noreferrer" aria-label="Escribir por WhatsApp"><Image className="whatsapp-float__icon" src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="" width={25} height={25} unoptimized /></a>
     </>
   );

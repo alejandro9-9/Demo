@@ -16,6 +16,17 @@ function hasGithubConfig() {
   return Boolean(process.env.GITHUB_TOKEN && process.env.GITHUB_OWNER && process.env.GITHUB_REPO);
 }
 
+export function friendlyGithubError(error: unknown, fallback: string) {
+  const message = error instanceof Error ? error.message : '';
+  if (message.includes('GitHub API respondió 401')) return 'No se pudo guardar porque la conexión con GitHub no está autorizada. Revisa el token configurado en Vercel.';
+  if (message.includes('GitHub API respondió 403')) return 'El token de GitHub no tiene permisos suficientes para este repositorio.';
+  if (message.includes('GitHub API respondió 404')) return 'No se encontró el repositorio configurado en GitHub. Revisa propietario, repositorio y rama.';
+  if (message.includes('GitHub API respondió 409')) return 'El contenido cambió mientras editabas. Recarga la página e inténtalo nuevamente.';
+  if (message.includes('GitHub Contents API no está configurada')) return 'El guardado remoto todavía no está configurado en Vercel.';
+  if (message.startsWith('Completa el campo') || message.startsWith('La sección') || message.startsWith('La lista') || message.startsWith('El campo') || message.startsWith('Ingresa ') || message.startsWith('WhatsApp') || message.startsWith('El precio')) return message;
+  return fallback;
+}
+
 function endpoint(settings: GithubConfig, path: string) {
   return `https://api.github.com/repos/${encodeURIComponent(settings.owner)}/${encodeURIComponent(settings.repo)}/contents/${path}`;
 }

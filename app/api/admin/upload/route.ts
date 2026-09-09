@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getAdminSession } from '@/lib/auth';
-import { uploadImageToGithub } from '@/lib/github';
+import { friendlyGithubError, uploadImageToGithub } from '@/lib/github';
 
 const allowedTypes = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/avif']);
 
@@ -13,7 +13,6 @@ export async function POST(request: Request) {
     if (file.size > 2 * 1024 * 1024) return NextResponse.json({ error: 'La imagen no puede superar 2 MB.' }, { status: 400 });
     return NextResponse.json({ ok: true, url: await uploadImageToGithub(file) });
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'No se pudo subir la imagen.';
-    return NextResponse.json({ error: message }, { status: 400 });
+    return NextResponse.json({ error: friendlyGithubError(error, 'No se pudo subir la imagen. Inténtalo nuevamente.') }, { status: 400 });
   }
 }
